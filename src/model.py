@@ -4,6 +4,7 @@ from data_loader import load_data
 from tqdm.auto import tqdm
 import torchvision
 import os
+from PIL import Image
 
 train_dataloader, val_dataloader, class_names = load_data()
 
@@ -68,7 +69,7 @@ model = torchvision.models.efficientnet_b0(weights=weights)
 for param in model.features.parameters():
     param.requires_grad = False
 
-output_shape = len(os.listdir('data/train'))
+output_shape = len(os.listdir(r'C:\Users\edgar\OneDrive\Ambiente de Trabalho\AI_Projects\Dog_LLM\data\train'))
 
 # Recreate the classifier layer and seed it to the target device
 model.classifier = torch.nn.Sequential(
@@ -77,7 +78,7 @@ model.classifier = torch.nn.Sequential(
                     out_features=output_shape, # same number of output units as our number of classes
                     bias=True))
 
-model.load_state_dict(torch.load('artifacts/model_state.pth', map_location=torch.device("cpu")))
+model.load_state_dict(torch.load(r'C:\Users\edgar\OneDrive\Ambiente de Trabalho\AI_Projects\Dog_LLM\artifacts\model_state.pth', map_location=torch.device("cpu")))
 
 def predict(image: str):
 
@@ -101,16 +102,16 @@ def predict(image: str):
 
     return label_pred
 
-if __name__ ==  '__main__':
-    train_dataloader, val_dataloader, class_names = load_data()
-    # train_features_batch, train_labels_batch = next(iter(train_dataloader))
-    # print(train_features_batch.shape, train_labels_batch.shape)
+# if __name__ ==  '__main__':
+#     train_dataloader, val_dataloader, class_names = load_data()
+#     # train_features_batch, train_labels_batch = next(iter(train_dataloader))
+#     # print(train_features_batch.shape, train_labels_batch.shape)
 
 
-    loss_fn = nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(params=model.parameters(), 
-                            lr=0.05)
+#     loss_fn = nn.CrossEntropyLoss()
+#     optimizer = torch.optim.SGD(params=model.parameters(), 
+#                             lr=0.05)
 
-    train_step(model, train_dataloader, loss_fn, optimizer, 10)
+#     train_step(model, train_dataloader, loss_fn, optimizer, 10)
 
-    torch.save(model.state_dict(), 'artifacts/model_state.pth')
+#     torch.save(model.state_dict(), 'artifacts/model_state.pth')

@@ -14,7 +14,7 @@ from model import predict
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-text_data = TextLoader("data/text_data/Breed_Data.txt", encoding="utf-8").load()
+text_data = TextLoader(r"C:\Users\edgar\OneDrive\Ambiente de Trabalho\AI_Projects\Dog_LLM\data\text_data\Breed_Data.txt", encoding="utf-8").load()
 text_data = ''.join(doc.page_content for doc in text_data)
 splitter = RecursiveCharacterTextSplitter(chunk_size=512,
     chunk_overlap=20)

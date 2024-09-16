@@ -1,8 +1,8 @@
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
-train_dir="data/train"
-val_dir="data/validation"
+train_dir=r"C:\Users\edgar\OneDrive\Ambiente de Trabalho\AI_Projects\Dog_LLM\data\train"
+val_dir=r"C:\Users\edgar\OneDrive\Ambiente de Trabalho\AI_Projects\Dog_LLM\data\validation"
 
 train_transform = transforms.Compose([
     # Resize the images to 64x64
@@ -28,11 +28,5 @@ def load_data(train_data: str = train_dir, val_data: str = val_dir, train_transf
 
     val_dataloader = DataLoader(dataset=val_data, batch_size=32, num_workers=1, shuffle=False)
 
-    #img, label = next(iter(train_dataloader))
-
-    #print(img.shape)
-
     return train_dataloader, val_dataloader, class_names
 
-# if __name__ ==  '__main__':
-#     train_dataloader, val_dataloader, class_names = load_data(train_dir, val_dir, train_transform, val_transform)
